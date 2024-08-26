@@ -56,9 +56,7 @@ class JsonFile
      */
     public function content(): ?array
     {
-        $file = is_string(file_get_contents(FilePath::EXPENSE)) ?: [];
-
-        if(file_exists(FilePath::EXPENSE) && !empty($file)) {
+        if(file_exists(FilePath::EXPENSE)) {
             $this->expenses = json_decode(file_get_contents(FilePath::EXPENSE), true);
         }
         return  $this->expenses;

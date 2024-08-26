@@ -33,5 +33,7 @@ enum Message: string
     public const DELETE_COMMAND_EXAMPLE = self::EXPENSE_TRACKER_LABEL.COLOR::YELLOW."delete --id 1\n\n".Color::GREY." # Expense deleted successfully\n\n";
     public const EXPENSES_SUMMARY_EXAMPLE_2 = self::EXPENSE_TRACKER_LABEL.COLOR::YELLOW."summary\n\n".Color::GREY." # Total expenses : $20\n\n";
     public const EXPENSES_SUMMARY_BY_MONTH = self::EXPENSE_TRACKER_LABEL.COLOR::YELLOW."summary --month 8\n\n".Color::GREY." # Total expenses for August: $20\n\n";
+    public const WRONG_COMMAND = Color::RED."Please, type a valid command !\n";
+    public const EXPENSE_ADDED_SUCCESSFULLY = Color::GREY."\n # Expense added successfully ";
     public const LISTS_OF_ALL_COMMANDS_AVAILABLE = self::ADD_COMMAND_EXAMPLE.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE.self::ADD_COMMAND_EXAMPLE_2.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE_2.self::EXPENSES_LIST_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE.self::DELETE_COMMAND_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE_2.self::EXPENSES_SUMMARY_BY_MONTH;
 }

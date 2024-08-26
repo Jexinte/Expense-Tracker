@@ -18,4 +18,6 @@ enum Regex: string
 {
     public const LETTERS_NUMBERS_AND_SPACES = '/^"[a-zA-z\d\s]+"$/';
     public const ONLY_NUMBERS = '/\d+/';
+    public const NOT_NUMBERS = '/[^\d+]/';
+    public const ADD_COMMAND = '/(^add[\s]{1}--description[\s]{1}\"[^\"]+\"[\s]{1}--amount \d+)/';
 }

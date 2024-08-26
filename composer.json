@@ -20,7 +20,7 @@
     "scripts": {
         "fix-style": "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php",
         "all-tests" :"./vendor/bin/phpunit tests",
-        "g-check":"./vendor/bin/grumphp run"
+        "g-run":"./vendor/bin/grumphp run"
     },
     "config": {
         "allow-plugins": {
