@@ -16,5 +16,5 @@ namespace Enumeration;
 
 enum FilePath: string
 {
-    public const TASKS = __DIR__."../../../config/expense.json";
+    public const EXPENSE = __DIR__."../../../config/expense.json";
 }

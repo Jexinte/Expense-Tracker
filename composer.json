@@ -3,7 +3,12 @@
     "description": "An CLI application that allows users to CRUD their expenses",
     "autoload": {
         "psr-4": {
-            "Mamad\\ExpenseTracker\\": "src/"
+            "Mamad\\ExpenseTracker\\": "src/",
+            "Config\\": "config/",
+            "Entity\\": "src/Entity/",
+            "Enumeration\\": "src/Enumeration/",
+            "Service\\": "src/Service/",
+            "Command\\":"src/Command/"
         }
     },
     "authors": [
