@@ -24,13 +24,12 @@ class Expense
      * Summary of __construct
      *
      * @param int $id
-     * @param string $createdAt
-     * @param string $updatedAt
+     * @param string $date
      * @param string $description
      * @param int $amount
      * @param JsonFile $jsonFile
      */
-    public function __construct(private int $id, private string $createdAt, private ?string $updatedAt, private string $description, private int $amount, private JsonFile $jsonFile)
+    public function __construct(private int $id, private string $date, private string $description, private int $amount, private JsonFile $jsonFile)
     {
         if(!$this->jsonFile->isCreated()) {
             $this->jsonFile->create();
@@ -49,34 +48,16 @@ class Expense
     }
 
     /**
-     * Summary of getCreatedAt
+     * Summary of getDate
      *
      * @return string
      */
-    public function getCreatedAt(): string
+    public function getDate(): string
     {
-        return $this->createdAt;
+        return $this->date;
     }
 
-    /**
-     * Summary of setUpdatedAt
-     *
-     * @return void
-     */
-    public function setUpdatedAt(): void
-    {
-        $this->updatedAt = date('Y-m-d');
-    }
 
-    /**
-     * Summary of getUpdatedAt
-     *
-     * @return string
-     */
-    public function getUpdatedAt(): ?string
-    {
-        return $this->updatedAt;
-    }
 
     /**
      * Summary of getDescription

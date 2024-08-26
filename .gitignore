@@ -4,3 +4,4 @@ readme.md
 grumphp.yml
 vendor
 .php-cs-fixer.cache
+php-cs-fixer.php

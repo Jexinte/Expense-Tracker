@@ -1,6 +1,6 @@
 <?php
- 
- declare(strict_types=1);
+
+declare(strict_types=1);
 
 /**
  * PHP version 8.
@@ -16,11 +16,14 @@ namespace Enumeration;
 
 enum ExpenseCommand
 {
-    public const ADD_DESCRIPTION = "--description";
-    public const ADD_AMOUNT = "--amount";
+    public const ADD = "add";
+    public const DESCRIPTION = "--description";
+    public const AMOUNT = "--amount";
+    public const MONTH = "--month";
     public const LIST_ALL = "list";
     public const SUMMARY_OF_ALL = "summary";
     public const DELETE = "delete --id";
-    public const UPDATE = "update --id";
     public const SUMMARY_BY_MONTH = "summary --month";
+
+    public const ALL_COMMANDS_TO_SHOW = [self::ADD,self::DESCRIPTION,self::AMOUNT,self::LIST_ALL,self::SUMMARY_OF_ALL,self::DELETE,self::SUMMARY_BY_MONTH];
 }

@@ -34,9 +34,9 @@ class ExpenseTest extends TestCase
         parent::setUp();
         $this->jsonFile = new JsonFile();
         if(empty($this->jsonFile->content())) {
-            $this->expense = new Expense(1, date('Y-m-d'), null, "Lunch", 20, $this->jsonFile);
+            $this->expense = new Expense(1, date('Y-m-d'), "Lunch", 20, $this->jsonFile);
         } else {
-            $this->expense = new Expense(count($this->jsonFile->content()) + 1, date('Y-m-d'), null, "Lunch", 20, $this->jsonFile);
+            $this->expense = new Expense(count($this->jsonFile->content()) + 1, date('Y-m-d'), "Lunch", 20, $this->jsonFile);
         }
     }
 
@@ -57,18 +57,10 @@ class ExpenseTest extends TestCase
      */
     public function testShouldReturnTheSameDate(): void
     {
-        $this->assertSame(date('Y-m-d'), $this->expense->getCreatedAt());
+        $this->assertSame(date('Y-m-d'), $this->expense->getDate());
     }
 
-    /**
-     * Summary of testShouldReturnTheSameValueForTheUpdatedAt
-     * 
-     * @return void
-     */
-    public function testShouldReturnTheSameValueForTheUpdatedAt(): void
-    {
-        $this->assertSame(null, $this->expense->getUpdatedAt());
-    }
+
 
     /**
      * Summary of testShouldReturnTheSameDescription
