@@ -5,7 +5,7 @@
         "psr-4": {
             "Mamad\\ExpenseTracker\\": "src/",
             "Config\\": "config/",
-            "Entity\\": "src/Entity",
+            "Entity\\": "src/Entity/",
             "Enumeration\\": "src/Enumeration/",
             "Service\\": "src/Service/",
             "Command\\":"src/Command/"

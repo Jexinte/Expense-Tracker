@@ -16,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 class JsonFileTest extends TestCase
 {
-
     private JsonFile $jsonFile;
     /**
      * Summary of jsonFile
@@ -27,15 +26,14 @@ class JsonFileTest extends TestCase
         $this->jsonFile = new JsonFile();
     }
 
-    
+
 
     /**
      * Summary of testShouldReturnFalseIfFileNotCreated
      */
     public function testShouldReturnFalseIfFileNotCreated(): void
     {
-        if(file_exists(FilePath::EXPENSE))
-        {
+        if(file_exists(FilePath::EXPENSE)) {
             unlink(FilePath::EXPENSE);
         }
         $this->assertSame(false, $this->jsonFile->isCreated());
@@ -64,11 +62,11 @@ class JsonFileTest extends TestCase
      */
     public function testShouldReturnAnEmptyArrayWhenFileDoesntExist(): void
     {
-        // if(file_exists(FilePath::EXPENSE)){
-        //     unlink(FilePath::EXPENSE);
-        // }
+        if(file_exists(FilePath::EXPENSE)) {
+            unlink(FilePath::EXPENSE);
+        }
         $this->assertSame([], $this->jsonFile->content());
     }
 
-    
+
 }

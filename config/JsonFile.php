@@ -23,7 +23,7 @@ class JsonFile
      * Summary of expenses
      * @var array<string>
      */
-    public ?array $expenses;
+    public ?array $expenses = [];
     /**
      * Summary of isCreated
      *
@@ -56,17 +56,12 @@ class JsonFile
      */
     public function content(): ?array
     {
-        switch(true) {
-            case file_exists(FilePath::EXPENSE) && is_null(json_decode(file_get_contents(FilePath::EXPENSE), true)):
-                $this->expenses = [];
-                break;
+        $file = is_string(file_get_contents(FilePath::EXPENSE)) ?: [];
 
-            default:
-                $this->expenses = json_decode(file_get_contents(FilePath::EXPENSE), true);
-                break;
+        if(file_exists(FilePath::EXPENSE) && !empty($file)) {
+            $this->expenses = json_decode(file_get_contents(FilePath::EXPENSE), true);
         }
         return  $this->expenses;
-
     }
 
 }

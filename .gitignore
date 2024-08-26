@@ -3,3 +3,4 @@ notes.md
 readme.md
 grumphp.yml
 vendor
+.php-cs-fixer.cache
