@@ -33,7 +33,7 @@ class JsonFile
     {
         $files = scandir(FolderPath::CONFIG);
         $filename = basename(FilePath::EXPENSE, "expense.json");
-        return in_array($filename, $files);
+        return in_array($filename, $files, true);
 
     }
 

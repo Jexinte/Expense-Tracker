@@ -62,7 +62,7 @@ class ExpenseTest extends TestCase
 
     /**
      * Summary of testShouldReturnTheSameValueForTheUpdatedAt
-     * 
+     *
      * @return void
      */
     public function testShouldReturnTheSameValueForTheUpdatedAt(): void

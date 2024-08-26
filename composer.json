@@ -17,6 +17,11 @@
             "email": "mdembelepro@gmail.com"
         }
     ],
+    "scripts": {
+        "fix-style": "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php",
+        "all-tests" :"./vendor/bin/phpunit tests",
+        "g-check":"./vendor/bin/grumphp run"
+    },
     "config": {
         "allow-plugins": {
             "phpro/grumphp": true
@@ -28,4 +33,5 @@
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "11"
     }
+    
 }
