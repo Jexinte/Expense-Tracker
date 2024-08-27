@@ -7,9 +7,7 @@ use Config\JsonFile;
 use Enumeration\Color;
 use Enumeration\Regex;
 use Command\AddCommand;
-use Command\ListCommand;
 use Enumeration\Message;
-use Enumeration\ExpenseCommand;
 use Service\ExpenseCrudService;
 
 /**
@@ -29,7 +27,7 @@ class ExpenseManagerService
 {
     public bool $userHaventExitTheProgram = false;
 
-    public function __construct(private AddCommand $addCommand, private ListCommand $listCommand, private ExpenseCrudService $expenseCrudService)
+    public function __construct(private AddCommand $addCommand, private ExpenseCrudService $expenseCrudService)
     {
     }
 
@@ -79,9 +77,13 @@ class ExpenseManagerService
     public function detectWhichCommandHavenBeenType(string $userInput): void
     {
         switch(true) {
+            case preg_match(Regex::ADD_COMMAND,$userInput):
+                $this->expenseCrudService->create($this->addCommand->returnCleanValues($userInput));
+                break;
             case preg_match(Regex::LIST_COMMAND, $userInput):
                 $this->expenseCrudService->findAll();
                 break;
+
         }
 
 
@@ -90,10 +92,9 @@ class ExpenseManagerService
 
 try {
     $addCommand = new AddCommand();
-    $listCommand = new ListCommand();
     $jsonFile = new JsonFile();
     $expenseCrudService = new ExpenseCrudService($jsonFile);
-    $expenseManagerService = new ExpenseManagerService($addCommand,$listCommand,$expenseCrudService);
+    $expenseManagerService = new ExpenseManagerService($addCommand,$expenseCrudService);
     $expenseManagerService->startTheProgram();
 } catch(Exception $e) {
     $stdErr = fopen('php://stderr', 'w');

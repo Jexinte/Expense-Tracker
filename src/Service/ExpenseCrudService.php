@@ -73,6 +73,11 @@ class ExpenseCrudService
     }
 
 
+    /**
+     * Summary of findAll
+     * @throws \Exception
+     * @return void
+     */
     public function findAll():void
     {
         $expenses = $this->jsonFile->content();
@@ -81,7 +86,7 @@ class ExpenseCrudService
         }
         foreach($expenses as $expense){
             $stdOut = fopen('php://stdout','w');
-            fwrite($stdOut,Color::GREY.Message::LIST_HEADLINES.Message::TAG_SYMBOL.MESSAGE::ONE_SPACE.$expenses["id"].Message::TWO_SPACE.$expenses["date"].Message::SIX_SPACE.$expenses["description"].Message::SEVEN_SPACE.$expenses["amount"]."\n\n");
+            fwrite($stdOut,Color::GREY.Message::LIST_HEADLINES.Message::TAG_SYMBOL.MESSAGE::ONE_SPACE.$expense["id"].Message::TWO_SPACE.$expense["date"].Message::SIX_SPACE.$expense["description"].Message::SEVEN_SPACE.$expense["amount"]."\n\n");
             fclose($stdOut);
         }
     }

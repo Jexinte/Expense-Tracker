@@ -14,26 +14,19 @@ declare(strict_types=1);
 
 namespace Command;
 
-use Exception;
 use Enumeration\Regex;
-use Enumeration\Message;
 
 class AddCommand
 {
-    /**
-     * Summary of checkerForValues
-     * @param string $userInput
-     * @throws \Exception
-     * @return  array<int,array<string, int>|string|null>
-     */
-    public function checkerForValues(string $userInput): array
-    {
-        if(preg_match(Regex::ADD_COMMAND, $userInput)) {
-            $this->getTheExpenseAmount($userInput);
-            return [$this->getTheExpenseDescription($userInput),$this->getTheExpenseAmount($userInput)];
-        }
 
-        throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::WRONG_COMMAND);
+    /**
+     * Summary of returnCleanValues
+     * @param string $userInput
+     * @return array<string>
+     */
+    public function returnCleanValues(string $userInput): array
+    {
+        return [$this->getTheExpenseDescription($userInput),$this->getTheExpenseAmount($userInput)];
     }
 
     /**
