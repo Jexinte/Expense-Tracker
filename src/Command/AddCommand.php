@@ -14,26 +14,18 @@ declare(strict_types=1);
 
 namespace Command;
 
-use Exception;
 use Enumeration\Regex;
-use Enumeration\Message;
 
 class AddCommand
 {
     /**
-     * Summary of checkerForValues
+     * Summary of returnCleanValues
      * @param string $userInput
-     * @throws \Exception
-     * @return  array<int,array<string, int>|string|null>
+     * @return array<string>
      */
-    public function checkerForValues(string $userInput): array
+    public function returnCleanValues(string $userInput): array
     {
-        if(preg_match(Regex::ADD_COMMAND, $userInput)) {
-            $this->getTheExpenseAmount($userInput);
-            return [$this->getTheExpenseDescription($userInput),$this->getTheExpenseAmount($userInput)];
-        }
-
-        throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::WRONG_COMMAND);
+        return [$this->getTheExpenseDescription($userInput),$this->getTheExpenseAmount($userInput)];
     }
 
     /**
@@ -44,8 +36,9 @@ class AddCommand
     public function getTheExpenseDescription(string $userInput): string
     {
         $posOfFirstDoubleQuotes = strpos($userInput, '"');
-        $posOfLastDash = strrpos($userInput, '-');
-        return current(explode(' ', substr($userInput, $posOfFirstDoubleQuotes, $posOfLastDash)));
+        $posOfLastDoublesQuotes = strrpos($userInput, '"');
+        $cleanString = str_replace('"', "", substr($userInput, $posOfFirstDoubleQuotes, $posOfLastDoublesQuotes - strlen($userInput)));
+        return $cleanString;
     }
 
     /**

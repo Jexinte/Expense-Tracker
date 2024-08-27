@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Entity\Expense;
 use Config\JsonFile;
 use Enumeration\Color;
+use Enumeration\Regex;
 use Command\AddCommand;
 use Enumeration\Message;
-use Enumeration\ExpenseCommand;
 use Service\ExpenseCrudService;
+use Command\SummaryByMonthCommand;
 
 /**
  * PHP version 8.
@@ -27,7 +27,7 @@ class ExpenseManagerService
 {
     public bool $userHaventExitTheProgram = false;
 
-    public function __construct(private AddCommand $addCommand, private ExpenseCrudService $expenseCrudService)
+    public function __construct(private AddCommand $addCommand, private SummaryByMonthCommand $summaryMonthByCommand, private ExpenseCrudService $expenseCrudService)
     {
     }
 
@@ -76,9 +76,24 @@ class ExpenseManagerService
      */
     public function detectWhichCommandHavenBeenType(string $userInput): void
     {
-        switch($userInput) {
-            case is_array($this->addCommand->checkerForValues($userInput)):
-                $this->expenseCrudService->create($this->addCommand->checkerForValues($userInput));
+        switch(true) {
+            case preg_match(Regex::ADD_COMMAND, $userInput):
+                $this->expenseCrudService->create($this->addCommand->returnCleanValues($userInput));
+                break;
+            case preg_match(Regex::LIST_COMMAND, $userInput):
+                $this->expenseCrudService->findAll();
+                break;
+            case preg_match(Regex::SUMMARY_COMMAND, $userInput):
+                $this->expenseCrudService->findBy();
+                break;
+            case preg_match(Regex::SUMMARY_BY_MONTH_COMMAND, $userInput):
+                $this->summaryMonthByCommand->getTheRightMonth($userInput);
+                $this->summaryMonthByCommand->getExpensesByMonth();
+                break;
+            case preg_match(Regex::DELETE_COMMAND, $userInput):
+                preg_match(Regex::ONLY_NUMBERS, $userInput, $idFound);
+
+                $this->expenseCrudService->delete(intval(current($idFound)));
                 break;
         }
 
@@ -87,10 +102,12 @@ class ExpenseManagerService
 }
 
 try {
-    $addCommand = new AddCommand();
     $jsonFile = new JsonFile();
+
+    $addCommand = new AddCommand();
+    $summaryByMonthCommand = new SummaryByMonthCommand($jsonFile);
     $expenseCrudService = new ExpenseCrudService($jsonFile);
-    $expenseManagerService = new ExpenseManagerService($addCommand, $expenseCrudService);
+    $expenseManagerService = new ExpenseManagerService($addCommand, $summaryByMonthCommand, $expenseCrudService);
     $expenseManagerService->startTheProgram();
 } catch(Exception $e) {
     $stdErr = fopen('php://stderr', 'w');
