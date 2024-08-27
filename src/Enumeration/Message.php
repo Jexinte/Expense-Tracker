@@ -44,7 +44,8 @@ enum Message: string
     public const TWO_SPACE = "  ";
     public const FIVE_SPACE = "           ";
     public const TEN_SPACE = "        ";
-    public const SUMMARY_OF_ALL_EXPENSES = Color::GREY."\n # Total expenses : $";
+    public const SUMMARY_OF_ALL_EXPENSES = Color::GREY."\n # Total expenses for ";
+    public const SUMMARY_OF_ALL_EXPENSES_END = Color::GREY.": $";
     public const EXPENSE_DELETE_SUCCESSFULLY = Color::GREY." # Expense deleted successfully\n\n";
 
     public const LISTS_OF_ALL_COMMANDS_AVAILABLE = self::ADD_COMMAND_EXAMPLE.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE.self::ADD_COMMAND_EXAMPLE_2.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE_2.self::EXPENSES_LIST_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE.self::DELETE_COMMAND_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE_2.self::EXPENSES_SUMMARY_BY_MONTH;

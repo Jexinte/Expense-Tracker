@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Command;
 
 use Config\JsonFile;
+use DateTime;
 use Exception;
 use Enumeration\Message;
 
@@ -36,7 +37,7 @@ class SummaryByMonthCommand
      * @param int $monthToFind
      * @return bool|int|string
      */
-    public function months(int $monthToFind)
+    public function months(int $monthToFind): bool|int|string
     {
         $months = [
             1 => "01",
@@ -60,7 +61,7 @@ class SummaryByMonthCommand
      * @param string $userInput
      * @return void
      */
-    public function getTheRightMonth(string $userInput)
+    public function getTheRightMonth(string $userInput): void
     {
         $lastSpacePos = strrpos($userInput, " ") + 1;
         $monthFromUserInput = substr($userInput, $lastSpacePos);
@@ -81,16 +82,41 @@ class SummaryByMonthCommand
                 $amountExpensesByMonth[] = $expense["amount"];
             }
         }
+
+        $this->chooseWhatToDoDependingOnTheRightMonthOrNot($amountExpensesByMonth);
+
+    }
+
+    /**
+     * Summary of chooseWhatToDoDependingOnTheRightMonthOrNot
+     * @param array $amountExpensesByMonth
+     * @throws \Exception
+     * @return void
+     */
+    public function chooseWhatToDoDependingOnTheRightMonthOrNot(array $amountExpensesByMonth): void
+    {
         switch(true) {
             case $this->month === "--":
                 throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::MONTH_DOESNT_EXIST);
             case empty($amountExpensesByMonth):
-                throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::MONTH_DOESNT_FOUND);
+                throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::NO_EXPENSES_FOUND);
             default:
                 $stdOut = fopen('php://stdout', 'w');
-                fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.array_sum($amountExpensesByMonth)."\n\n");
+                $monthInNumber = str_replace('-', '', $this->month);
+                fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.$this->returnTheMonthInWord($monthInNumber).": $".array_sum($amountExpensesByMonth)."\n\n");
                 fclose($stdOut);
         }
+    }
+
+    /**
+     * Summary of returnTheMonthInWord
+     * @param string $monthInNumber
+     * @return string
+     */
+    public function returnTheMonthInWord(string $monthInNumber): string
+    {
+        $date = DateTime::createFromFormat('!m', $monthInNumber);
+        return $date->format('F');
     }
 
 }
