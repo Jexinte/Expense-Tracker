@@ -44,8 +44,9 @@ class AddCommand
     public function getTheExpenseDescription(string $userInput): string
     {
         $posOfFirstDoubleQuotes = strpos($userInput, '"');
-        $posOfLastDash = strrpos($userInput, '-');
-        return current(explode(' ', substr($userInput, $posOfFirstDoubleQuotes, $posOfLastDash)));
+        $posOfLastDoublesQuotes = strrpos($userInput, '"');
+        $cleanString = str_replace('"', "", substr($userInput, $posOfFirstDoubleQuotes, $posOfLastDoublesQuotes - strlen($userInput)));
+        return $cleanString;
     }
 
     /**

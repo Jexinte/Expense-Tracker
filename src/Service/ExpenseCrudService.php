@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Service;
 
+use Exception;
 use Entity\Expense;
 use Config\JsonFile;
+use Enumeration\Color;
 use Enumeration\Message;
 use Enumeration\FilePath;
 
@@ -25,6 +27,7 @@ use Enumeration\FilePath;
 interface ExpenseCrud
 {
     public function create(string $descriptionAndAmountValues): void;
+    public function findAll():void;
 }
 class ExpenseCrudService
 {
@@ -48,12 +51,11 @@ class ExpenseCrudService
         $originalDataArray = $this->jsonFile->content();
         switch(true) {
             case empty($originalDataArray):
-                echo "tableau vide ";
                 $expense = new Expense(1, date('Y-m-d'), current($descriptionAndAmountValues), intval(next($descriptionAndAmountValues)), $this->jsonFile);
                 break;
             default:
                 $idForExpense = count($originalDataArray) == 0 ? 1 : count($originalDataArray) + 1;
-                $expense = new Expense($idForExpense, date('Y-m-d'), str_replace('"', "", current($descriptionAndAmountValues)), intval(next($descriptionAndAmountValues)), $this->jsonFile);
+                $expense = new Expense($idForExpense, date('Y-m-d'), current($descriptionAndAmountValues), intval(next($descriptionAndAmountValues)), $this->jsonFile);
                 break;
         }
 
@@ -66,7 +68,21 @@ class ExpenseCrudService
 
         file_put_contents(FilePath::EXPENSE, $json);
         $stdOut = fopen('php://stdout', 'w');
-        fwrite($stdOut, Message::EXPENSE_ADDED_SUCCESSFULLY."( ID :".$expense->getId().")\n\n");
+        fwrite($stdOut, Message::EXPENSE_ADDED_SUCCESSFULLY."( ID: ".$expense->getId().")\n\n");
         fclose($stdOut);
+    }
+
+
+    public function findAll():void
+    {
+        $expenses = $this->jsonFile->content();
+        if(empty($expenses)){
+            throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::NO_EXPENSES_FOUND);
+        }
+        foreach($expenses as $expense){
+            $stdOut = fopen('php://stdout','w');
+            fwrite($stdOut,Color::GREY.Message::LIST_HEADLINES.Message::TAG_SYMBOL.MESSAGE::ONE_SPACE.$expenses["id"].Message::TWO_SPACE.$expenses["date"].Message::SIX_SPACE.$expenses["description"].Message::SEVEN_SPACE.$expenses["amount"]."\n\n");
+            fclose($stdOut);
+        }
     }
 }
