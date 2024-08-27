@@ -17,8 +17,10 @@ use PHPUnit\Framework\TestCase;
 class JsonFileTest extends TestCase
 {
     private JsonFile $jsonFile;
+
     /**
-     * Summary of jsonFile
+     * Summary of setUp
+     * @return void
      */
     public function setUp(): void
     {
