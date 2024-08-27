@@ -35,5 +35,13 @@ enum Message: string
     public const EXPENSES_SUMMARY_BY_MONTH = self::EXPENSE_TRACKER_LABEL.COLOR::YELLOW."summary --month 8\n\n".Color::GREY." # Total expenses for August: $20\n\n";
     public const WRONG_COMMAND = Color::RED."Please, type a valid command !\n";
     public const EXPENSE_ADDED_SUCCESSFULLY = Color::GREY."\n # Expense added successfully ";
+    public const LIST_HEADLINES = " \n\n # ID     Date           Description    Amount\n\n";
+    public const NO_EXPENSES_FOUND = Color::RED."No expenses found ! Add some of it !\n";
+    public const TAG_SYMBOL = " #";
+    public const ONE_SPACE = "  ";
+    public const TWO_SPACE = "  ";
+    public const FIVE_SPACE = "           ";
+    public const TEN_SPACE = "        ";
+
     public const LISTS_OF_ALL_COMMANDS_AVAILABLE = self::ADD_COMMAND_EXAMPLE.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE.self::ADD_COMMAND_EXAMPLE_2.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE_2.self::EXPENSES_LIST_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE.self::DELETE_COMMAND_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE_2.self::EXPENSES_SUMMARY_BY_MONTH;
 }

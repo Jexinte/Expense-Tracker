@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Entity\Expense;
 use Config\JsonFile;
 use Enumeration\Color;
+use Enumeration\Regex;
 use Command\AddCommand;
 use Enumeration\Message;
-use Enumeration\ExpenseCommand;
 use Service\ExpenseCrudService;
 
 /**
@@ -76,10 +76,14 @@ class ExpenseManagerService
      */
     public function detectWhichCommandHavenBeenType(string $userInput): void
     {
-        switch($userInput) {
-            case is_array($this->addCommand->checkerForValues($userInput)):
-                $this->expenseCrudService->create($this->addCommand->checkerForValues($userInput));
+        switch(true) {
+            case preg_match(Regex::ADD_COMMAND, $userInput):
+                $this->expenseCrudService->create($this->addCommand->returnCleanValues($userInput));
                 break;
+            case preg_match(Regex::LIST_COMMAND, $userInput):
+                $this->expenseCrudService->findAll();
+                break;
+
         }
 
 
