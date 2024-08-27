@@ -28,6 +28,7 @@ interface ExpenseCrud
 {
     public function create(string $descriptionAndAmountValues): void;
     public function findAll(): void;
+    public function findBy(string $summaryCommand, string $monthCommand = null): void;
 }
 class ExpenseCrudService
 {
@@ -94,5 +95,30 @@ class ExpenseCrudService
             fclose($stdOut);
         }
         fclose($stdOut2);
+    }
+
+    /**
+     * Summary of findBy
+     * @param string $summaryCommand
+     * @param string $monthCommand
+     * @throws \Exception
+     * @return void
+     */
+    public function findBy(string $summaryCommand, string $monthCommand = null): void
+    {
+        $expenses = $this->jsonFile->content();
+
+        if(empty($expenses)) {
+            throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::NO_EXPENSES_FOUND);
+        }
+
+        switch($monthCommand) {
+            case null:
+                $expensesWithOnlyAmounts = array_column($expenses, $summaryCommand);
+                $stdOut = fopen('php://stdout', 'w');
+                fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.array_sum($expensesWithOnlyAmounts)."\n\n");
+                fclose($stdOut);
+                break;
+        }
     }
 }

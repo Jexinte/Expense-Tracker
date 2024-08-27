@@ -7,6 +7,7 @@ use Config\JsonFile;
 use Enumeration\Color;
 use Enumeration\Regex;
 use Command\AddCommand;
+use Enumeration\ExpenseCommand;
 use Enumeration\Message;
 use Service\ExpenseCrudService;
 
@@ -83,7 +84,9 @@ class ExpenseManagerService
             case preg_match(Regex::LIST_COMMAND, $userInput):
                 $this->expenseCrudService->findAll();
                 break;
-
+            case preg_match(Regex::SUMMARY_COMMAND, $userInput):
+                $this->expenseCrudService->findBy(ExpenseCommand::SUMMARY_OF_ALL);
+                break;
         }
 
 

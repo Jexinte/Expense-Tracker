@@ -21,4 +21,5 @@ enum Regex: string
     public const NOT_NUMBERS = '/[^\d+]/';
     public const ADD_COMMAND = '/(^add[\s]{1}--description[\s]{1}\"[^\"]+\"[\s]{1}--amount \d+)/';
     public const LIST_COMMAND = '/^list$/';
+    public const SUMMARY_COMMAND = '/^summary$/';
 }
