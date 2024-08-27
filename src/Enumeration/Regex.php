@@ -23,4 +23,5 @@ enum Regex: string
     public const LIST_COMMAND = '/^list$/';
     public const SUMMARY_COMMAND = '/^summary$/';
     public const SUMMARY_BY_MONTH_COMMAND = '/(^summary[\s]{1}--month[\s]{1}\d{1,2})/';
+    public const DELETE_COMMAND = '/(^delete[\s]{1}--id[\s]{1}\d{1,})/';
 }

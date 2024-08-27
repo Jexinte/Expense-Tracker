@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Entity\Expense;
 use Config\JsonFile;
 use Enumeration\Color;
 use Enumeration\Regex;
@@ -90,6 +89,11 @@ class ExpenseManagerService
             case preg_match(Regex::SUMMARY_BY_MONTH_COMMAND, $userInput):
                 $this->summaryMonthByCommand->getTheRightMonth($userInput);
                 $this->summaryMonthByCommand->getExpensesByMonth();
+                break;
+            case preg_match(Regex::DELETE_COMMAND, $userInput):
+                preg_match(Regex::ONLY_NUMBERS, $userInput, $idFound);
+
+                $this->expenseCrudService->delete(intval(current($idFound)));
                 break;
         }
 

@@ -30,6 +30,7 @@ interface ExpenseCrud
     public function create(string $descriptionAndAmountValues): void;
     public function findAll(): void;
     public function findBy(): void;
+    public function delete(int $id): void;
 }
 class ExpenseCrudService
 {
@@ -66,9 +67,11 @@ class ExpenseCrudService
         $array["description"] = $expense->getDescription();
         $array["amount"] = $expense->getAmount();
         array_push($originalDataArray, $array);
+        var_dump($originalDataArray);
         $json = json_encode($originalDataArray);
 
         file_put_contents(FilePath::EXPENSE, $json);
+
         $stdOut = fopen('php://stdout', 'w');
         fwrite($stdOut, Message::EXPENSE_ADDED_SUCCESSFULLY."( ID: ".$expense->getId().")\n\n");
         fclose($stdOut);
@@ -116,6 +119,30 @@ class ExpenseCrudService
         $expensesWithOnlyAmounts = array_column($expenses, str_replace('--', '', ExpenseCommand::AMOUNT));
         fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.array_sum($expensesWithOnlyAmounts)."\n\n");
 
+        fclose($stdOut);
+
+    }
+
+    /**
+     * Summary of delete
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $expenses = $this->jsonFile->content();
+
+        foreach($expenses as $k => $expense) {
+            if($expense["id"] == $id) {
+                unset($expenses[$k]);
+            }
+        }
+        $json = json_encode(array_values($expenses));
+
+        file_put_contents(FilePath::EXPENSE, $json);
+
+        $stdOut = fopen('php://stdout', 'w');
+        fwrite($stdOut, Message::EXPENSE_DELETE_SUCCESSFULLY);
         fclose($stdOut);
 
     }
