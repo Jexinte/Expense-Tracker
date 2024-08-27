@@ -37,11 +37,14 @@ enum Message: string
     public const EXPENSE_ADDED_SUCCESSFULLY = Color::GREY."\n # Expense added successfully ";
     public const LIST_HEADLINES = " \n\n # ID     Date           Description    Amount\n\n";
     public const NO_EXPENSES_FOUND = Color::RED."No expenses found ! Add some of it !\n";
+    public const MONTH_DOESNT_FOUND = Color::RED."No expenses found for this month !\n";
+    public const MONTH_DOESNT_EXIST = Color::RED."Specify a valid month between 1 and 12 to get the summary expenses related to !\n";
     public const TAG_SYMBOL = " #";
     public const ONE_SPACE = "  ";
     public const TWO_SPACE = "  ";
     public const FIVE_SPACE = "           ";
     public const TEN_SPACE = "        ";
+    public const SUMMARY_OF_ALL_EXPENSES = Color::GREY."\n # Total expenses : $";
 
     public const LISTS_OF_ALL_COMMANDS_AVAILABLE = self::ADD_COMMAND_EXAMPLE.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE.self::ADD_COMMAND_EXAMPLE_2.self::EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE_2.self::EXPENSES_LIST_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE.self::DELETE_COMMAND_EXAMPLE.self::EXPENSES_SUMMARY_EXAMPLE_2.self::EXPENSES_SUMMARY_BY_MONTH;
 }

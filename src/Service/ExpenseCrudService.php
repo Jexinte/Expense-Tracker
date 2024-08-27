@@ -8,6 +8,7 @@ use Exception;
 use Entity\Expense;
 use Config\JsonFile;
 use Enumeration\Color;
+use Enumeration\ExpenseCommand;
 use Enumeration\Message;
 use Enumeration\FilePath;
 
@@ -28,6 +29,7 @@ interface ExpenseCrud
 {
     public function create(string $descriptionAndAmountValues): void;
     public function findAll(): void;
+    public function findBy(): void;
 }
 class ExpenseCrudService
 {
@@ -94,5 +96,27 @@ class ExpenseCrudService
             fclose($stdOut);
         }
         fclose($stdOut2);
+    }
+
+    /**
+     * Summary of findBy
+     * @throws \Exception
+     * @return void
+     */
+    public function findBy(): void
+    {
+        $expenses = $this->jsonFile->content();
+
+        if(empty($expenses)) {
+            throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::NO_EXPENSES_FOUND);
+        }
+        $stdOut = fopen('php://stdout', 'w');
+
+
+        $expensesWithOnlyAmounts = array_column($expenses, str_replace('--', '', ExpenseCommand::AMOUNT));
+        fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.array_sum($expensesWithOnlyAmounts)."\n\n");
+
+        fclose($stdOut);
+
     }
 }
