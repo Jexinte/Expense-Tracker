@@ -27,7 +27,7 @@ use Enumeration\FilePath;
 interface ExpenseCrud
 {
     public function create(string $descriptionAndAmountValues): void;
-    public function findAll():void;
+    public function findAll(): void;
 }
 class ExpenseCrudService
 {
@@ -78,16 +78,21 @@ class ExpenseCrudService
      * @throws \Exception
      * @return void
      */
-    public function findAll():void
+    public function findAll(): void
     {
         $expenses = $this->jsonFile->content();
-        if(empty($expenses)){
+        if(empty($expenses)) {
             throw new Exception(Message::EXPENSE_TRACKER_LABEL.Message::NO_EXPENSES_FOUND);
         }
-        foreach($expenses as $expense){
-            $stdOut = fopen('php://stdout','w');
-            fwrite($stdOut,Color::GREY.Message::LIST_HEADLINES.Message::TAG_SYMBOL.MESSAGE::ONE_SPACE.$expense["id"].Message::TWO_SPACE.$expense["date"].Message::SIX_SPACE.$expense["description"].Message::SEVEN_SPACE.$expense["amount"]."\n\n");
+        $stdOut2 = fopen('php://stdout', 'a');
+
+        fwrite($stdOut2, Color::GREY.Message::LIST_HEADLINES);
+
+        foreach($expenses as $expense) {
+            $stdOut = fopen('php://stdout', 'w');
+            fwrite($stdOut, Message::TAG_SYMBOL.MESSAGE::ONE_SPACE.$expense["id"].MESSAGE::TWO_SPACE.$expense["date"].Message::FIVE_SPACE.$expense["description"].Message::TEN_SPACE.$expense["amount"]."\n\n");
             fclose($stdOut);
         }
+        fclose($stdOut2);
     }
 }

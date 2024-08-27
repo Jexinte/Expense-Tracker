@@ -77,7 +77,7 @@ class ExpenseManagerService
     public function detectWhichCommandHavenBeenType(string $userInput): void
     {
         switch(true) {
-            case preg_match(Regex::ADD_COMMAND,$userInput):
+            case preg_match(Regex::ADD_COMMAND, $userInput):
                 $this->expenseCrudService->create($this->addCommand->returnCleanValues($userInput));
                 break;
             case preg_match(Regex::LIST_COMMAND, $userInput):
@@ -94,7 +94,7 @@ try {
     $addCommand = new AddCommand();
     $jsonFile = new JsonFile();
     $expenseCrudService = new ExpenseCrudService($jsonFile);
-    $expenseManagerService = new ExpenseManagerService($addCommand,$expenseCrudService);
+    $expenseManagerService = new ExpenseManagerService($addCommand, $expenseCrudService);
     $expenseManagerService->startTheProgram();
 } catch(Exception $e) {
     $stdErr = fopen('php://stderr', 'w');

@@ -18,7 +18,6 @@ use Enumeration\Regex;
 
 class AddCommand
 {
-
     /**
      * Summary of returnCleanValues
      * @param string $userInput
