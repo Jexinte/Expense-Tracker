@@ -7,9 +7,9 @@ use Config\JsonFile;
 use Enumeration\Color;
 use Enumeration\Regex;
 use Command\AddCommand;
-use Enumeration\ExpenseCommand;
 use Enumeration\Message;
 use Service\ExpenseCrudService;
+use Command\SummaryByMonthCommand;
 
 /**
  * PHP version 8.
@@ -28,7 +28,7 @@ class ExpenseManagerService
 {
     public bool $userHaventExitTheProgram = false;
 
-    public function __construct(private AddCommand $addCommand, private ExpenseCrudService $expenseCrudService)
+    public function __construct(private AddCommand $addCommand, private SummaryByMonthCommand $summaryMonthByCommand, private ExpenseCrudService $expenseCrudService)
     {
     }
 
@@ -85,7 +85,11 @@ class ExpenseManagerService
                 $this->expenseCrudService->findAll();
                 break;
             case preg_match(Regex::SUMMARY_COMMAND, $userInput):
-                $this->expenseCrudService->findBy(ExpenseCommand::SUMMARY_OF_ALL);
+                $this->expenseCrudService->findBy();
+                break;
+            case preg_match(Regex::SUMMARY_BY_MONTH_COMMAND, $userInput):
+                $this->summaryMonthByCommand->getTheRightMonth($userInput);
+                $this->summaryMonthByCommand->getExpensesByMonth();
                 break;
         }
 
@@ -94,10 +98,12 @@ class ExpenseManagerService
 }
 
 try {
-    $addCommand = new AddCommand();
     $jsonFile = new JsonFile();
+
+    $addCommand = new AddCommand();
+    $summaryByMonthCommand = new SummaryByMonthCommand($jsonFile);
     $expenseCrudService = new ExpenseCrudService($jsonFile);
-    $expenseManagerService = new ExpenseManagerService($addCommand, $expenseCrudService);
+    $expenseManagerService = new ExpenseManagerService($addCommand, $summaryByMonthCommand, $expenseCrudService);
     $expenseManagerService->startTheProgram();
 } catch(Exception $e) {
     $stdErr = fopen('php://stderr', 'w');
