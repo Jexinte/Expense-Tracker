@@ -4,3 +4,4 @@ grumphp.yml
 vendor
 .php-cs-fixer.cache
 php-cs-fixer.php
+phpstan.neon
