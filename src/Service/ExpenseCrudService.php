@@ -117,7 +117,7 @@ class ExpenseCrudService
 
 
         $expensesWithOnlyAmounts = array_column($expenses, str_replace('--', '', ExpenseCommand::AMOUNT));
-        fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES.array_sum($expensesWithOnlyAmounts)."\n\n");
+        fwrite($stdOut, Message::SUMMARY_OF_ALL_EXPENSES."$".array_sum($expensesWithOnlyAmounts)."\n\n");
 
         fclose($stdOut);
 

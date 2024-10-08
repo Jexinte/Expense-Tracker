@@ -24,7 +24,7 @@ enum Message: string
 
     public const ADD_COMMAND_EXAMPLE = self::EXPENSE_TRACKER_LABEL.Color::YELLOW.'add --description "Lunch" --amount 20'.PHP_EOL.PHP_EOL;
     public const EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE = Color::GREY." # Expense added successfully ( ID: 1)\n\n";
-    public const ADD_COMMAND_EXAMPLE_2 = self::EXPENSE_TRACKER_LABEL.Color::YELLOW.'add --description "Diner" --amount 10'.PHP_EOL.PHP_EOL;
+    public const ADD_COMMAND_EXAMPLE_2 = self::EXPENSE_TRACKER_LABEL.Color::YELLOW.'add --description "Dinner" --amount 10'.PHP_EOL.PHP_EOL;
     public const EXPENSE_ADDED_SUCCESSFULLY_EXAMPLE_2 = Color::GREY." # Expense added successfully ( ID: 2)\n\n";
 
     public const EXPENSES_LIST_EXAMPLE = self::EXPENSE_TRACKER_LABEL.Color::YELLOW."list".Color::GREY." \n\n # ID  Date           Description Amount\n\n # 1  2024-08-06      Lunch       $20\n\n # 2  2024-08-06      Dinner      $10\n\n";
